@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>todo 리스트</title>
 </head>
 <body>
-    ??
+    todo 리스트 입니다.
+    <a href="/todo/create/">
+        <button>새로만들기</button>
+    </a>
+    <ul>
+        {% for todo in todos %}
+        <a href="/todo/{{todo.id}}">
+            <li>
+                {{ todo.content }}
+            </li>
+            {% endfor %}
+        </a>   
+    </ul>
 </body>
 </html>
