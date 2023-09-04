@@ -16,8 +16,9 @@ Including another URLconf
 """
 
 from django.urls import path
-from todoproject import views
+from .import views
 
 urlpatterns = [
     path('index/', views.index),
+    path('create/', views.create),
 ]
