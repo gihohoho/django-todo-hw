@@ -15,7 +15,7 @@ def index(request):
         }
         return render(request, "todo/index.html", context)
     else:
-        return HttpResponse('error', status=405)
+        return HttpResponse('Invalid request method', status=405)
 
 
 @csrf_exempt
@@ -26,7 +26,7 @@ def create(request):
     elif request.method == "GET":
         return render(request, "todo/create.html")
     else:
-        return HttpResponse('error', status=405)
+        return HttpResponse('Invalid request method', status=405)
 
 
 def read(request, todo_id):
