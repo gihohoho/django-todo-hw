@@ -42,11 +42,11 @@ def read(request, todo_id):
 @csrf_exempt
 def update(request, todo_id):
     if request.method == "POST":
+        todo = Todo.objects.get(id=todo_id)
         if request.user == todo.user:
-            todo = Todo.objects.get(id=todo_id)
             todo.content = request.POST['content']
             todo.save()
-            return redirect(f'{todo_id}')
+            return redirect(f'/todo/{todo_id}/')
         else:
             return HttpResponse('not allowed to delete', status=403)
     elif request.method == "GET":
