@@ -25,4 +25,5 @@ urlpatterns = [
     path('index/', views.index),
     path('getdata/', views.getdata),
     path('todo/', include("todo.urls")),
+    path('user/', include("user.urls")),
 ]

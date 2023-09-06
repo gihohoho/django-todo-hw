@@ -6,10 +6,24 @@
     <title>todo 리스트</title>
 </head>
 <body>
-    todo 리스트 입니다.
+    <div>todo 리스트 입니다.</div>
     <a href="/todo/create/">
         <button>새로만들기</button>
     </a>
+    {% if request.user.is_authenticated %}
+        <div>
+            {{ request.user.username}}
+            <form action="/user/logout/" method="post">
+                {% csrf_token %}
+                <button>로그아웃 하기</button>
+            </form>
+        </div>
+    {% else %}
+        <div>
+            <button onclick="location.href='/user/signup'">회원가입 하기</button>
+            <button onclick="location.href='/user/login'">로그인 하기</button>
+        </div>
+    {% endif %}
     <ul>
         {% for todo in todos %}
         <a href="/todo/{{todo.id}}">

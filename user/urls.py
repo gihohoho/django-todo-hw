@@ -19,8 +19,7 @@ from django.urls import path
 from .import views
 
 urlpatterns = [
-    path('', views.index),
-    path('create/', views.create),
-    path('<int:todo_id>/', views.read),
-    path('update/<int:todo_id>/', views.update),
+    path('signup/', views.signup),
+    path('login/', views.login),
+    path('logout/', views.logout),
 ]
