@@ -19,6 +19,11 @@
             <button>수정하기</button>
         </a>
     </div>
+    <div>
+        <form action="/todo/delete/{{todo.id}}/" method='post'>
+            <button>삭제하기</button>
+        </form>
+    </div>
     {% endif %}
 
     <a href="/todo/">
