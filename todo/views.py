@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
+@csrf_exempt
 def index(request):
     if request.method == "GET":
         todos = Todo.objects.all()
@@ -23,7 +24,11 @@ def index(request):
 @csrf_exempt
 def create(request):
     if request.method == "POST":
-        Todo.objects.create(content=request.POST['content'], user=request.user)
+        Todo.objects.create(
+            content=request.POST['content'],
+            user=request.user,
+            image=request.FILES.get("image"),
+        )
         return redirect('/todo/')
     elif request.method == "GET":
         return render(request, "todo/create.html")
@@ -48,7 +53,7 @@ def update(request, todo_id):
             todo.save()
             return redirect(f'/todo/{todo_id}/')
         else:
-            return HttpResponse('not allowed to delete', status=403)
+            return HttpResponse('not allowed to update', status=403)
     elif request.method == "GET":
         todo = Todo.objects.get(id=todo_id)
         context = {
@@ -68,5 +73,16 @@ def delete(request, todo_id):
             return redirect('/todo/')
         else:
             return HttpResponse('not allowed to delete', status=403)
+    else:
+        return HttpResponse('Invalid request method', status=405)
+
+
+@csrf_exempt
+def is_completed(request, todo_id):
+    todo = Todo.objects.get(id=todo_id)
+    if request.method == "POST":
+        Todo.is_completed = True
+        todo.save()
+        return redirect('/todo/')
     else:
         return HttpResponse('Invalid request method', status=405)
