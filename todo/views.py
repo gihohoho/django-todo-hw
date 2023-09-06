@@ -57,3 +57,16 @@ def update(request, todo_id):
         return render(request, "todo/update.html", context)
     else:
         return HttpResponse('Invalid request method', status=405)
+
+
+@csrf_exempt
+def delete(request, todo_id):
+    if request.method == "POST":
+        todo = Todo.objects.get(id=todo_id)
+        if request.user == todo.user:
+            todo.delete()
+            return redirect('/todo/')
+        else:
+            return HttpResponse('not allowed to delete', status=403)
+    else:
+        return HttpResponse('Invalid request method', status=405)
