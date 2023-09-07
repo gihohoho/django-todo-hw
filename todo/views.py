@@ -29,7 +29,7 @@ def create(request):
             user=request.user,
             image=request.FILES.get("image"),
         )
-        return redirect('/todo/')
+        return redirect('/todo/individual')
     elif request.method == "GET":
         return render(request, "todo/create.html")
     else:
@@ -70,19 +70,37 @@ def delete(request, todo_id):
         todo = Todo.objects.get(id=todo_id)
         if request.user == todo.user:
             todo.delete()
-            return redirect('/todo/')
+            return redirect('/todo/individual/')
         else:
             return HttpResponse('not allowed to delete', status=403)
     else:
         return HttpResponse('Invalid request method', status=405)
 
 
+# @csrf_exempt
+# def is_completed(request, todo_id):
+#     todo = Todo.objects.get(id=todo_id)
+#     if request.method == "POST":
+#         Todo.is_completed = True
+#         todo.save()
+#         return redirect('/todo/')
+#     else:
+#         return HttpResponse('Invalid request method', status=405)
+
+
 @csrf_exempt
-def is_completed(request, todo_id):
-    todo = Todo.objects.get(id=todo_id)
+def individual(request):
     if request.method == "POST":
-        Todo.is_completed = True
-        todo.save()
-        return redirect('/todo/')
+        todos = Todo.objects.all()
+        context = {
+            'todos': todos,
+        }
+        return render(request, "todo/individual.html", context)
+    elif request.method == "GET":
+        todos = Todo.objects.all()
+        context = {
+            'todos': todos,
+        }
+        return render(request, "todo/individual.html", context)
     else:
         return HttpResponse('Invalid request method', status=405)
