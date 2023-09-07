@@ -77,20 +77,19 @@ def delete(request, todo_id):
         return HttpResponse('Invalid request method', status=405)
 
 
-@csrf_exempt
-def is_completed(request, todo_id):
-    todo = Todo.objects.get(id=todo_id)
-    if request.method == "POST":
-        Todo.is_completed = True
-        todo.save()
-        return redirect('/todo/')
-    else:
-        return HttpResponse('Invalid request method', status=405)
+# @csrf_exempt
+# def is_completed(request, todo_id):
+#     todo = Todo.objects.get(id=todo_id)
+#     if request.method == "POST":
+#         Todo.is_completed = True
+#         todo.save()
+#         return redirect('/todo/')
+#     else:
+#         return HttpResponse('Invalid request method', status=405)
 
 
 @csrf_exempt
 def individual(request):
-    print(request.method)
     if request.method == "POST":
         todos = Todo.objects.all()
         context = {

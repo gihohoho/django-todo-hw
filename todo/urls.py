@@ -24,6 +24,6 @@ urlpatterns = [
     path('<int:todo_id>/', views.read),
     path('update/<int:todo_id>/', views.update),
     path('delete/<int:todo_id>/', views.delete),
-    path('is_completed/', views.is_completed),
+    # path('is_completed/', views.is_completed),
     path('individual/', views.individual),
 ]

@@ -14,14 +14,16 @@
             </a>
             <ul>
             <form action="/todo/is_completed/" method="post">
-                {% for todo in todos %}
-                    <a href="/todo/{{todo.id}}">
-                        <div>
-                            <input type="checkbox" name={{ids}} id={{todo.id}} value={{todo.id}} >
-                            {{ todo.content }}
-                        </div>
-                    </a>
-                {% endfor %}
+                    {% for todo in todos %}
+                        {% if request.user.id == todo.user_id %}
+                            <a href="/todo/{{todo.id}}">
+                                <div>
+                                    <input type="checkbox" name={{ids}} id={{todo.id}} value={{todo.id}} >
+                                    {{ todo.content }}
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
                 <button  type="submit" >완료하기</button>
             </form>
             </ul>
