@@ -70,7 +70,7 @@ def delete(request, todo_id):
         todo = Todo.objects.get(id=todo_id)
         if request.user == todo.user:
             todo.delete()
-            return redirect('/todo/')
+            return redirect('/todo/individual/')
         else:
             return HttpResponse('not allowed to delete', status=403)
     else:
@@ -84,5 +84,24 @@ def is_completed(request, todo_id):
         Todo.is_completed = True
         todo.save()
         return redirect('/todo/')
+    else:
+        return HttpResponse('Invalid request method', status=405)
+
+
+@csrf_exempt
+def individual(request):
+    print(request.method)
+    if request.method == "POST":
+        todos = Todo.objects.all()
+        context = {
+            'todos': todos,
+        }
+        return render(request, "todo/individual.html", context)
+    elif request.method == "GET":
+        todos = Todo.objects.all()
+        context = {
+            'todos': todos,
+        }
+        return render(request, "todo/individual.html", context)
     else:
         return HttpResponse('Invalid request method', status=405)

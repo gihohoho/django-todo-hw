@@ -10,6 +10,6 @@ class Todo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     is_completed = models.BooleanField(default=False)
     image = models.ImageField(blank=True, null=True)
-    
+
     def __str__(self):
         return self.content
