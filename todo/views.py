@@ -29,7 +29,7 @@ def create(request):
             user=request.user,
             image=request.FILES.get("image"),
         )
-        return redirect('/todo/')
+        return redirect('/todo/individual')
     elif request.method == "GET":
         return render(request, "todo/create.html")
     else:

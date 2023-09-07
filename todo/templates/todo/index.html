@@ -7,19 +7,19 @@
 </head>
 <body>
     <h1>전체 Todo 리스트</h1>
+    <ul>
+        {% for todo in todos %}
+            <div>
+                {{todo.user.username}} : {{ todo.content }}
+            </div>
+        {% endfor %}
+    </ul>
     {% if request.user.is_authenticated %}
         <div>
             <form action="/user/logout/" method="post">
                 {% csrf_token %}
                 <button>로그아웃 하기</button>
             </form>
-            <ul>
-                {% for todo in todos %}
-                    <div>
-                        {{todo.user.username}} : {{ todo.content }}
-                    </div>
-                {% endfor %}
-            </ul>
         </div>
         <div>
             <form action="/todo/individual/" method="post">
